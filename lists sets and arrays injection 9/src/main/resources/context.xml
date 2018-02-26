@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="someBean" class="com.tramp.spring.SomeBean">
+		<constructor-arg>
+			<list>
+				<value>jeden</value>
+				<value>dwa</value>
+				<value>trzy</value>
+			</list>
+		</constructor-arg>
+		<constructor-arg>
+			<set>
+				<value>3</value>
+				<value>5</value>
+				<value>2</value>
+			</set>
+		</constructor-arg>
+		<constructor-arg>
+			<array>
+				<value>6</value>
+				<value>4</value>
+				<value>2</value>
+			</array>
+		</constructor-arg>
+	</bean>
+
+
+
+</beans>

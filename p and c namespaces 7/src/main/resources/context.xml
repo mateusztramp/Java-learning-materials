@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="someLocale" class="java.util.Locale" factory-method="getDefault" />
+
+	<bean id="someUser" class="com.tramp.spring.User">
+		<constructor-arg value="jan"></constructor-arg>
+		<constructor-arg value="23"></constructor-arg>
+		<constructor-arg ref="someLocale"></constructor-arg>
+	</bean>
+
+	<bean id="someClass" class="com.tramp.spring.SomeClass">
+		<property name="user" ref="someUser" />
+		<property name="stringValue" value="some string value" />
+		<property name="intValue" value="100" />
+	</bean>
+
+	<bean id="someUser2" class="com.tramp.spring.User" c:name="jano"
+		c:age="32" c:locale-ref="someLocale" />
+		
+	<bean id="someUser3" class="com.tramp.spring.User" c:_0="janok"
+		c:_1="32" c:_2-ref="someLocale" />
+
+	<bean id="someClass2" class="com.tramp.spring.SomeClass"
+		p:stringValue="somme string value" p:intValue="3232" p:user-ref="someUser2" />
+
+
+</beans>
