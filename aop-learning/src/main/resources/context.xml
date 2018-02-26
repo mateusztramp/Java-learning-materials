@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+	<bean id="customerRepository" class="CustomerRepositoryImpl" />
+
+	<bean id="loggingAspect" class="LoggingAspect" />
+	
+	<bean id="benchmarkAspect" class="BenchmarkAspect"/> 
+
+	<aop:config>
+		<aop:pointcut expression="execution(* com.tramp.spring.get* (..))" id="allGettersFromCustomersRepository" />
+		<aop:pointcut expression="execution(* com.tramp.spring.add* (..))" id="allAddersFromCustomersRepository" />
+		<aop:aspect ref="loggingAspect">
+			<aop:before method="logExecution" pointcut-ref="allGettersFromCustomersRepository" />
+			<aop:after-returning method="warnIfNull" pointcut="execution(* * *(**))" returning="returningValue" />
+			<aop:after-throwing method="serveException" pointcut-ref="allAddersFromCustomersRepository" throwing="e"/>
+			<aop:after method="methodExecuted" pointcut-ref="allAddersFromCustomersRepository"/>
+		</aop:aspect>
+		
+		<aop:aspect ref="benchmarkAspect"> 
+		    <aop:around method="measureExecutionTime" pointcut="execution(* addCustomer(..))"/>
+		</aop:aspect>
+	</aop:config>
+
+</beans>
