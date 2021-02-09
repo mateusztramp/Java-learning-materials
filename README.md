@@ -1,2 +1,2 @@
-# Learnings
-Just learning stuff
+# Materials for learning
+
